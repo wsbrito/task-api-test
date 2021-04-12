@@ -1,5 +1,7 @@
 package br.wsbrito.task.apitest;
 
+import java.time.LocalDate;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,9 +42,11 @@ public class APITest {
 
 	@Test
 	public void deveAdicionarTarefaComSucesso() {
+		LocalDate futureDate = LocalDate.now().plusYears(10L);
+		//System.out.println(futureDate);
 		RestAssured
 			.given()
-				.body("{ \"task\":\"Teste via API\",\"dueDate\":\"2021-04-07\"}")
+				.body(String.format("{ \"task\":\"Teste via API\",\"dueDate\":\"%s\"}", futureDate.toString()))
 				.contentType(ContentType.JSON)
 				//.log().all()
 			.when()
